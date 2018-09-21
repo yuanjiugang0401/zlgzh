@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zl.dao.ZlAddressDao">
+    
+	<sql id="zlAddressColumns">
+		a.id AS "id",
+		a.addr_user AS "addrUser",
+		a.addr_tel AS "addrTel",
+		a.province AS "province",
+		a.city AS "city",
+		a.area AS "area",
+		a.addr_name AS "addrName",
+		a.addr_city AS "addrCity",
+		a.is_default AS "isDefault",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.oppen_id AS "oppenId"
+	</sql>
+	
+	<sql id="zlAddressJoins">
+	</sql>
+    
+	<select id="get" resultType="ZlAddress">
+		SELECT 
+			<include refid="zlAddressColumns"/>
+		FROM zl_address a
+		<include refid="zlAddressJoins"/>
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+       <if test="id != null and id != ''">
+           and a.id=#{id}
+	   </if>
+	   <if test="oppenId != null and oppenId != ''">
+           and a.oppen_id=#{oppenId}
+	   </if>
+	</select>
+	<select id="selectByIsDefault" resultType="ZlAddress">
+		SELECT 
+			<include refid="zlAddressColumns"/>
+		FROM zl_address a
+		<include refid="zlAddressJoins"/>
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+       <if test="id != null and id != ''">
+           and a.id=#{id}
+	   </if>
+	    <if test="oppenId != null and oppenId != ''">
+           and a.oppen_id=#{oppenId}
+	   </if>
+	   <if test="isDefault != null and isDefault != ''">
+	       and a.is_default=1
+	   </if>
+	</select>
+	<select id="findList" resultType="ZlAddress">
+		SELECT 
+			<include refid="zlAddressColumns"/>
+		FROM zl_address a
+		<include refid="zlAddressJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="addrUser != null and addrUser != ''">
+				AND a.addr_user LIKE 
+					<if test="dbName == 'oracle'">'%'||#{addrUser}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{addrUser}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{addrUser},'%')</if>
+			</if>
+			<if test="addrTel != null and addrTel != ''">
+				AND a.addr_tel LIKE 
+					<if test="dbName == 'oracle'">'%'||#{addrTel}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{addrTel}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{addrTel},'%')</if>
+			</if>
+			<if test="oppenId != null and oppenId != ''">
+			 	AND a.oppen_id=#{oppenId}
+		    </if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.is_default DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZlAddress">
+		SELECT 
+			<include refid="zlAddressColumns"/>
+		FROM zl_address a
+		<include refid="zlAddressJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="addrUser != null and addrUser != ''">
+				AND a.addr_user LIKE 
+					<if test="dbName == 'oracle'">'%'||#{addrUser}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{addrUser}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{addrUser},'%')</if>
+			</if>
+			<if test="addrTel != null and addrTel != ''">
+				AND a.addr_tel LIKE 
+					<if test="dbName == 'oracle'">'%'||#{addrTel}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{addrTel}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{addrTel},'%')</if>
+			</if>
+			<if test="oppenId != null and oppenId != ''">
+			 	AND a.oppen_id=#{oppenId}
+		    </if>
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO zl_address(
+			addr_user,
+			addr_tel,
+			province,
+			city,
+			area,
+			addr_name,
+			addr_city,
+			is_default,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			oppen_id
+		) VALUES (
+			#{addrUser},
+			#{addrTel},
+			#{province},
+			#{city},
+			#{area},
+			#{addrName},
+			#{addrCity},
+			#{isDefault},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{oppenId}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE zl_address SET 	
+			addr_user = #{addrUser},
+			addr_tel = #{addrTel},
+			province = #{province},
+			city = #{city},
+			area = #{area},
+			addr_name = #{addrName},
+			addr_city = #{addrCity},
+			is_default = #{isDefault},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			oppen_id = #{oppenId}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE zl_address SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	<update id="updateAll">
+		UPDATE zl_address SET is_default='0' WHERE oppen_id = #{oppenId} AND del_flag = #{DEL_FLAG_NORMAL}
+	</update>
+</mapper>

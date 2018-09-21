@@ -1,0 +1,47 @@
+body {
+	background: #efeff4;
+}
+.list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 0 10px;
+	margin-top: 10px;
+	margin-bottom: 60px;
+}
+.item {
+	width: 48%;
+	background: #fff;
+	margin-bottom: 16px;
+}
+.item img {
+	width: 100%;
+}
+.item-text {
+	padding: 3%;
+	position: relative;
+}
+.item-text p {
+	width: 100%;
+	color: #333;
+	font-size: 1.6rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-bottom: 6px;
+}
+.item-text span {
+	color: #e8322f;
+	font-size: 1.8rem;
+	font-weight: 600;
+}
+.cart {
+	display: inline-block;
+	position: absolute;
+	bottom: 0.7rem;
+	right: 0.9rem;
+}
+.cart i {
+	font-size: 1.6rem;
+	color: red;
+}

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zl.dao.ZlCartDao">
+    
+	<sql id="zlCartColumns">
+		a.id AS "id",
+		a.goods_id AS "goodsId",
+		a.goods_name AS "goodsName",
+		a.goods_pic AS "goodsPic",
+		a.goods_spe AS "goodsSpe",
+		a.goods_price AS "goodsPrice",
+		a.goods_num AS "goodsNum",
+		a.goods_total AS "goodsTotal",
+		a.oppen_id AS "oppenId",
+		a.status AS "status",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_time AS "updateTime",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="zlCartJoins">
+	</sql>
+    
+	<select id="get" resultType="ZlCart">
+		SELECT 
+			<include refid="zlCartColumns"/>
+		FROM zl_cart a
+		<include refid="zlCartJoins"/>
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="id != null and id != ''">
+			AND a.id=#{id}
+		</if>
+		<if test="oppenId != null and oppenId != ''">
+			AND a.oppen_id=#{oppenId}
+		</if>
+		<if test="goodsId != null and goodsId != ''">
+			AND a.goods_id=#{goodsId}
+		</if>
+	</select>
+	
+	<select id="findList" resultType="ZlCart">
+		SELECT 
+			<include refid="zlCartColumns"/>
+		FROM zl_cart a
+		<include refid="zlCartJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<!--<if test="oppenId != null and oppenId != ''">
+				AND a.oppen_id=#{oppenId}
+			</if>-->
+			<if test="goodsName != null and goodsName != ''">
+				AND a.goods_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{goodsName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{goodsName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{goodsName},'%')</if>
+			</if>
+			<if test="oppenId != null and oppenId != ''">
+				AND a.oppen_id LIKE 
+					<if test="dbName == 'oracle'">'%'||#{oppenId}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{oppenId}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{oppenId},'%')</if>
+			</if>
+			<if test="goodsId != null and goodsId != ''">
+				AND a.goods_id in (${goodsId})
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZlCart">
+		SELECT 
+			<include refid="zlCartColumns"/>
+		FROM zl_cart a
+		<include refid="zlCartJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<!--<if test="oppenId != null and oppenId != ''">
+				AND a.oppen_id=#{oppenId}
+			</if>-->
+			<if test="goodsName != null and goodsName != ''">
+				AND a.goods_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{goodsName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{goodsName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{goodsName},'%')</if>
+			</if>
+			<if test="oppenId != null and oppenId != ''">
+				AND a.oppen_id LIKE 
+					<if test="dbName == 'oracle'">'%'||#{oppenId}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{oppenId}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{oppenId},'%')</if>
+			</if>
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO zl_cart(
+			goods_id,
+			goods_name,
+			goods_pic,
+			goods_spe,
+			goods_price,
+			goods_num,
+			goods_total,
+			oppen_id,
+			status,
+			create_by,
+			create_date,
+			update_by,
+			update_time,
+			remarks,
+			del_flag
+		) VALUES (
+			#{goodsId},
+			#{goodsName},
+			#{goodsPic},
+			#{goodsSpe},
+			#{goodsPrice},
+			#{goodsNum},
+			#{goodsTotal},
+			#{oppenId},
+			#{status},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateTime},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE zl_cart SET 	
+			goods_id = #{goodsId},
+			goods_name = #{goodsName},
+			goods_pic = #{goodsPic},
+			goods_spe = #{goodsSpe},
+			goods_price = #{goodsPrice},
+			goods_num = #{goodsNum},
+			goods_total = #{goodsTotal},
+			oppen_id = #{oppenId},
+			status = #{status},
+			update_by = #{updateBy.id}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE zl_cart SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE goods_id = #{goodsId}
+	</update>
+	<select id="goodsTotalPrice" resultType="java.lang.Float">
+        select IFNULL(sum(binary(goods_total)),0) from zl_cart where oppen_id=#{oppenId}
+        and del_flag='0'
+        <if test="goodsId != null and goodsId != ''">
+          and goods_id in(${goodsId})
+        </if>
+    </select>
+     <select id="goodsTotalNum" resultType="java.lang.Integer">
+        select IFNULL(sum(goods_num),0) from zl_cart where oppen_id=#{oppenId} and del_flag='0'
+    </select>
+</mapper>

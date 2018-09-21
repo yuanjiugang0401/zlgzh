@@ -1,0 +1,36 @@
+.content {
+	padding: 0 10px;
+}
+.content p {
+	color: #999;
+	font-size: 13px;
+	margin: 10px 0 20px;
+}
+.content h4 {
+	font-weight: 400;
+	font-size: 17px;
+	margin-bottom: 10px;
+}
+h5 {
+	color: #454545;
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 1.4;
+}
+.lr {
+	margin-top: 16px;
+	padding: 8px 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-top: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
+}
+.lr span {
+	color: #586c94;
+	font-size: 14px;
+}
+.lr i {
+	font-size: 12px;
+	color: #ccc;
+}

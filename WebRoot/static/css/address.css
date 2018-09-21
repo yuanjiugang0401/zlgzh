@@ -1,0 +1,55 @@
+.list {
+	background: #f5f5f5;
+}
+.list a{
+	display: block;
+}
+.item {
+	padding: 10px;
+	background: #fff;
+	margin-bottom: 12px;
+}
+.item-t {
+	padding: 12px 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.item-t h4 {
+	font-weight: 400;
+	font-size: 17px;
+}
+.item-t a {
+	display: block;
+	width: 24px;
+}
+.item-t a img {
+	width: 100%;
+}
+.item p {
+	font-size: 13px;
+	color: #232323;
+	line-height: 18px;
+}
+.item span {
+	color: #fff;
+	padding: 0 5px;
+	font-size: 13px;
+	margin-top: 5px;
+	display: inline-block;
+	background: #e21323;
+}
+.link {
+	padding: 0 10px;
+	margin: 20px 0;
+}
+.link a {
+	display: block;
+	width: 100%;
+	color: #fff;
+	padding: 10px 0;
+	font-size: 18px;
+	border-radius: 6px;
+	text-align: center;
+	background-color: #1aad19;
+}

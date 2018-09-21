@@ -1,0 +1,30 @@
+.ellipsis {
+ 	overflow: hidden;
+ 	text-overflow: ellipsis;
+ 	white-space: nowrap;
+}
+
+.header {
+	position: relative;
+	height: 44px;
+	border-bottom: 1px solid #e1e1e1;
+	background: linear-gradient(to bottom, #fff 0%,#efefef 100%);
+}
+.header-title {
+	margin: 0 50px;
+	text-align: center;
+	height: 44px;
+	line-height: 44px;
+	font-size: 16px;
+	color: #252525;
+}
+.header-img {
+	position: absolute;
+	width: 24px;
+	height: 44px;
+	left: 8px;
+	top: 10px;
+}
+.header-img img {
+	width: 100%;
+}

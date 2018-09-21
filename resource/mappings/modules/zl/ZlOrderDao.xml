@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zl.dao.ZlOrderDao">
+    
+	<sql id="zlOrderColumns">
+		a.id AS "id",
+		a.order_id AS "orderId",
+		a.goods_id AS "goodsId",
+		a.goods_name AS "goodsName",
+		a.goods_pic AS "goodsPic",
+		a.goods_spe AS "goodsSpe",
+		a.goods_price AS "goodsPrice",
+		a.goods_num AS "goodsNum",
+		a.goods_total_price AS "goodsTotalPrice",
+		a.goods_total_num AS "goodsTotalNum",
+		a.addr_name AS "addrName",
+		a.receive AS "receive",
+		a.oppen_id AS "oppenId",
+		a.pay_type AS "payType",
+		a.status AS "status",
+		a.note AS "note",
+		a.express_dm AS "expressDm",
+		a.express_name AS "expressName",
+		a.express_hm AS "expressHm",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="zlOrderJoins">
+	</sql>
+    
+	<select id="get" resultType="ZlOrder">
+		SELECT 
+			<include refid="zlOrderColumns"/>
+		FROM zl_order a
+		<include refid="zlOrderJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZlOrder">
+		SELECT 
+			<include refid="zlOrderColumns"/>
+		FROM zl_order a
+		<include refid="zlOrderJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="orderId != null and orderId != ''">
+				AND a.order_id LIKE 
+					<if test="dbName == 'oracle'">'%'||#{orderId}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{orderId}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{orderId},'%')</if>
+			</if>
+			<if test="goodsName != null and goodsName != ''">
+				AND a.goods_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{goodsName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{goodsName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{goodsName},'%')</if>
+			</if>
+			<if test="addrName != null and addrName != ''">
+				AND a.addr_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{addrName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{addrName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{addrName},'%')</if>
+			</if>
+			<if test="oppenId != null and oppenId != ''">
+				AND a.oppen_id LIKE 
+					<if test="dbName == 'oracle'">'%'||#{oppenId}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{oppenId}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{oppenId},'%')</if>
+			</if>
+			<if test="expressHm != null and expressHm != ''">
+				AND a.express_hm LIKE 
+					<if test="dbName == 'oracle'">'%'||#{expressHm}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{expressHm}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{expressHm},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZlOrder">
+		SELECT 
+			<include refid="zlOrderColumns"/>
+		FROM zl_order a
+		<include refid="zlOrderJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO zl_order(
+			order_id,
+			goods_id,
+			goods_name,
+			goods_pic,
+			goods_spe,
+			goods_price,
+			goods_num,
+			goods_total_price,
+			goods_total_num,
+			addr_name,
+			receive,
+			oppen_id,
+			pay_type,
+			status,
+			note,
+			express_dm,
+			express_name,
+			express_hm,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{orderId},
+			#{goodsId},
+			#{goodsName},
+			#{goodsPic},
+			#{goodsSpe},
+			#{goodsPrice},
+			#{goodsNum},
+			#{goodsTotalPrice},
+			#{goodsTotalNum},
+			#{addrName},
+			#{receive},
+			#{oppenId},
+			#{payType},
+			#{status},
+			#{note},
+			#{expressDm},
+			#{expressName},
+			#{expressHm},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE zl_order SET 	
+			order_id = #{orderId},
+			goods_id = #{goodsId},
+			goods_name = #{goodsName},
+			goods_pic = #{goodsPic},
+			goods_spe = #{goodsSpe},
+			goods_price = #{goodsPrice},
+			goods_num = #{goodsNum},
+			goods_total_price = #{goodsTotalPrice},
+			goods_total_num = #{goodsTotalNum},
+			addr_name = #{addrName},
+			receive = #{receive},
+			oppen_id = #{oppenId},
+			pay_type = #{payType},
+			status = #{status},
+			note = #{note},
+			express_dm = #{expressDm},
+			express_name = #{expressName},
+			express_hm = #{expressHm},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE zl_order SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,62 @@
+.weui-cells {
+	font-size: 14px;
+}
+.weui-cell__hd {
+	width: 80px;
+	font-size: 14px;
+}
+.weui-label {
+	width: 80px;
+	font-size: 14px;
+}
+.weui-input {
+	-moz-appearance: textfield;
+}
+.weui-vcode-btn {
+	font-size: 14px;
+}
+.link {
+	padding: 0 10px;
+	margin: 20px 0;
+}
+.link a {
+	margin-bottom: 20px;
+	display: block;
+	width: 100%;
+	color: #fff;
+	padding: 8px 0;
+	font-size: 18px;
+	border-radius: 6px;
+	text-align: center;
+	background-color: #1aad19;
+}
+.link .red {
+	background: #e64340;
+}
+
+.weui-picker__item {
+	font-size: 14px;
+}
+
+.recharge {
+	border-bottom: 1px solid #f5f5f5;
+}
+
+.list {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.item {
+	width: 26%;
+	padding: 6px 0;
+	text-align: center;
+	margin-top: 10px;
+	border-radius: 4px;
+	border: 1px solid #1aad19;
+}
+.item a {
+	display: block;
+	color: #1aad19;
+	font-size: 14px;
+}

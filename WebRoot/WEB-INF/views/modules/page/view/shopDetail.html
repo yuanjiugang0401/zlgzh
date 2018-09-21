@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>dao</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="css/icon.css">
+		<link rel="stylesheet" href="css/swiper.min.css">
+		<link rel="stylesheet" type="text/css" href="css/shopDetail.css">
+	</head>
+	<body>
+		<div class="swiper-container">
+		    <div class="swiper-wrapper">
+		        <div class="swiper-slide">
+		        	<img src="images/zhutu01.jpg" alt="">
+		        </div>
+		        <div class="swiper-slide">
+		        	<img src="images/zhutu02.jpg" alt="">
+		        </div>
+		        <div class="swiper-slide">
+		        	<img src="images/zhutu03.jpg" alt="">
+		        </div>
+		        <div class="swiper-slide">
+		        	<img src="images/zhutu04.jpg" alt="">
+		        </div>
+		        <div class="swiper-slide">
+		        	<img src="images/zhutu04.jpg" alt="">
+		        </div>
+		    </div>
+		    <!-- 如果需要分页器 -->
+		    <div class="swiper-pagination"></div>
+		</div>
+		<div class="cont">
+			<h4>俞兆林卫衣 男2017春新款运动休闲印花大码潮人卫衣卫裤加厚外套套装男</h4>
+			<div class="price">￥<em>296.00</em></div>
+			<p>【2017春季全场2件8】春款薄绒休闲套头纯色印花连帽大码卫衣套装新款上新！！</p>
+		</div>
+		<div class="car">
+			<a class="add" href="">加入购物车</a>
+			<a class="buy" href="close.html">立即购买</a>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/swiper.min.js"></script>
+		<script>
+			document.body.addEventListener('touchstart', function() {});
+			
+			  var mySwiper = new Swiper ('.swiper-container', {
+			    loop: true,
+			    loopAdditionalSlides: 1,
+			    pagination: '.swiper-pagination',
+			    autoplayDisableOnInteraction: false,
+				paginationType : 'fraction',
+				paginationFractionRender: function (swiper, currentClassName, totalClassName) {
+					  return '<span class="' + currentClassName + '"></span>' +
+							 ' / ' +
+							 '<span class="' + totalClassName + '"></span>';
+				}
+			  })        
+		</script>
+	</body>
+</html>

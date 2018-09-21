@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zl.dao.ZlWxSettingDao">
+    
+	<sql id="zlWxSettingColumns">
+		a.id AS "id",
+		a.appid AS "appid",
+		a.appsecret AS "appsecret",
+		a.partner AS "partner",
+		a.partnerkey AS "partnerkey",
+		a.link AS "link"
+	</sql>
+	
+	<sql id="zlWxSettingJoins">
+	</sql>
+    
+	<select id="get" resultType="ZlWxSetting">
+		SELECT 
+			<include refid="zlWxSettingColumns"/>
+		FROM zl_wx_setting a
+		<include refid="zlWxSettingJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZlWxSetting">
+		SELECT 
+			<include refid="zlWxSettingColumns"/>
+		FROM zl_wx_setting a
+		<include refid="zlWxSettingJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ZlWxSetting">
+		SELECT 
+			<include refid="zlWxSettingColumns"/>
+		FROM zl_wx_setting a
+		<include refid="zlWxSettingJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO zl_wx_setting(
+			appid,
+			appsecret,
+			partner,
+			partnerkey,
+			link
+		) VALUES (
+			#{appid},
+			#{appsecret},
+			#{partner},
+			#{partnerkey},
+			#{link}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE zl_wx_setting SET 	
+			appid = #{appid},
+			appsecret = #{appsecret},
+			partner = #{partner},
+			partnerkey = #{partnerkey},
+			link = #{link}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM zl_wx_setting
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
