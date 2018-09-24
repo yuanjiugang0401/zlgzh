@@ -5,6 +5,8 @@ package com.thinkgem.jeesite.common.utils;
 
 import java.io.Serializable;
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import org.activiti.engine.impl.cfg.IdGenerator;
@@ -69,4 +71,13 @@ public class IdGen implements IdGenerator, SessionIdGenerator {
 		}
 	}
 
+	/**
+	 * 生成订单编号
+	 * @return
+	 */
+	public static String getOrderId(){
+		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		String order_id = sd.format(new Date());
+		return order_id;
+	}
 }

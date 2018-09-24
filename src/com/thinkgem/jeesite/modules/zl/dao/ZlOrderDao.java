@@ -14,5 +14,6 @@ import com.thinkgem.jeesite.modules.zl.entity.ZlOrder;
  */
 @MyBatisDao
 public interface ZlOrderDao extends CrudDao<ZlOrder> {
+
 	
 }

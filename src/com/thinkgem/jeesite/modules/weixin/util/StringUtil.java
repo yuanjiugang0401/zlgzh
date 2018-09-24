@@ -5,6 +5,9 @@ import com.thinkgem.jeesite.common.utils.SpringContextHolder;
 import com.thinkgem.jeesite.modules.zl.dao.ZlWxSettingDao;
 import com.thinkgem.jeesite.modules.zl.entity.ZlWxSetting;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class StringUtil {
 	public static ZlWxSetting getSetting() {
 		ZlWxSettingDao zlWxSettingDao = SpringContextHolder
@@ -18,4 +21,8 @@ public class StringUtil {
 	static String token_url2 = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";// 全局accesstoken接口
 	static String template_id_1 = "C6YRjqsvDLYFuVQbVHfAWKWPbXD8Ca_lSwiXG8cQQNY"; // 订单支付成功信息推送模板
 	static String template_id_2 = "tjqPjlrB1vbXatR7_HhEefzjG1UNbacVTotD85J_ZR8	"; // 商品已发出通知
+
+
+
+
 }

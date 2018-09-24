@@ -173,5 +173,13 @@
     </select>
      <select id="goodsTotalNum" resultType="java.lang.Integer">
         select IFNULL(sum(goods_num),0) from zl_cart where oppen_id=#{oppenId} and del_flag='0'
+		 <if test="goodsId != null and goodsId != ''">
+			 and goods_id in(${goodsId})
+		 </if>
     </select>
+	<update id="deleteByIds">
+		UPDATE zl_cart SET
+		del_flag = '1'
+		WHERE oppen_id=#{oppenId} and goods_id IN (${goodsId})
+	</update>
 </mapper>

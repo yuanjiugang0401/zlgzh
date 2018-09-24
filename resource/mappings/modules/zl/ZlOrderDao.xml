@@ -38,7 +38,14 @@
 			<include refid="zlOrderColumns"/>
 		FROM zl_order a
 		<include refid="zlOrderJoins"/>
-		WHERE a.id = #{id}
+		WHERE
+		a.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="id != null and id != ''">
+			a.id=#{id}
+		</if>
+		<if test="orderId != null and orderId != ''">
+			a.order_id=#{orderId}
+		</if>
 	</select>
 	
 	<select id="findList" resultType="ZlOrder">
@@ -107,7 +114,7 @@
 		</choose>
 	</select>
 	
-	<insert id="insert">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO zl_order(
 			order_id,
 			goods_id,
@@ -160,6 +167,61 @@
 			#{delFlag}
 		)
 	</insert>
+
+	<insert id="insert">
+		INSERT INTO zl_order(
+		order_id,
+		goods_id,
+		goods_name,
+		goods_pic,
+		goods_spe,
+		goods_price,
+		goods_num,
+		goods_total_price,
+		goods_total_num,
+		addr_name,
+		receive,
+		oppen_id,
+		pay_type,
+		status,
+		note,
+		express_dm,
+		express_name,
+		express_hm,
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks,
+		del_flag
+		) VALUES (
+		#{orderId},
+		#{goodsId},
+		#{goodsName},
+		#{goodsPic},
+		#{goodsSpe},
+		#{goodsPrice},
+		#{goodsNum},
+		#{goodsTotalPrice},
+		#{goodsTotalNum},
+		#{addrName},
+		#{receive},
+		#{oppenId},
+		#{payType},
+		#{status},
+		#{note},
+		#{expressDm},
+		#{expressName},
+		#{expressHm},
+		#{createBy.id},
+		#{createDate},
+		#{updateBy.id},
+		#{updateDate},
+		#{remarks},
+		#{delFlag}
+		)
+	</insert>
+
 	
 	<update id="update">
 		UPDATE zl_order SET 	

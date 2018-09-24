@@ -20,4 +20,6 @@ public interface ZlCartDao extends CrudDao<ZlCart> {
 	public Float goodsTotalPrice(ZlCart zlCart);
 	//查询所有商品数量
 	public Integer goodsTotalNum(ZlCart zlCart);
+	//移除购物车
+	public void deleteByIds(ZlCart zlCart);
 }
