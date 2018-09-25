@@ -191,7 +191,7 @@
                 WeixinJSBridge.log(res.err_msg);
                 if(res.err_msg == "get_brand_wcpay_request:ok"){
                     $.toast("支付成功!");
-                    setTimeout('window.location.href="order_list"',2000);
+                    setTimeout('window.location.href=""',2000);
                 }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
                     $.toast("支付已取消!");
                     setTimeout('window.location.href="order_list"',2000);

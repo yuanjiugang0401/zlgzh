@@ -119,13 +119,13 @@ public class OrderController extends BaseController {
 
         ZlOrder order=zlOrderService.get(zlOrder);
         logger.info("微信返回 ---->"+xmlStr);
-        if (order.getStatus().equals("0")) {
+        //if (order.getStatus().equals("0")) {
             if (return_code.equals("SUCCESS")) {
                 order.setStatus("1");
                 order.setIsNewRecord(false);
                 zlOrderService.save(order);
             }
-        }
+        //}
     }
 
     /**

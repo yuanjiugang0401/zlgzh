@@ -34,10 +34,10 @@ public class TopayServlet {
         //总金额
         float money = zlOrder.getGoodsTotalPrice();
         int price = (int) (money * 100);
-        String totalFee = 0.01 + "";
+        String totalFee = 1+"";
         String openId = zlOrder.getOppenId();
         //回调函数
-        String notify_url = zlWxSetting.getLink() + "/a/page/noticeOrder";
+        String notify_url = zlWxSetting.getLink() + "/a/page/noticeOrder/";
         //当前时间
         String currTime = TenpayUtil.getCurrTime();
         // 8位日期
@@ -56,8 +56,7 @@ public class TopayServlet {
         String attach = "";
         // 商户订单号
         String out_trade_no = orderNo;
-        String spbill_create_ip = "127.0.0.1";
-//				request.getRemoteAddr();
+        String spbill_create_ip = request.getRemoteAddr();
         String trade_type = "JSAPI";
         String openid = openId;
 
@@ -93,9 +92,8 @@ public class TopayServlet {
                 + "</trade_type>"
                 + "<openid>" + openid + "</openid>"
                 + "</xml>";
-        String createOrderURL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
-        String prepay_id = "";
-        prepay_id = GetWxOrderno.getPayNo(createOrderURL, xml);
+        String createOrderURL = "https://api.mch.weixin.qq.com/pay/unifiedorder";;
+        String prepay_id = GetWxOrderno.getPayNo(createOrderURL, xml);
         SortedMap<String, Object> finalpackage = new TreeMap<String, Object>();
         String timestamp = Sha1Util.getTimeStamp();
         String packages = "prepay_id=" + prepay_id;
